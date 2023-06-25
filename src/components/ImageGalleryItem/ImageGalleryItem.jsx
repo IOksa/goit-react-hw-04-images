@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, forwardRef} from 'react';
 import Modal from '../Modal/Modal';
 import BigImageInModal from '../BigImageInModal/BigImageInModal';
 import css from './ImageGalleryItem.module.css';
 
 
-const ImageGalleryItem =({image:{webformatURL,tags,largeImageURL}})=>{ 
+const ImageGalleryItem = forwardRef ((props, ref)=>{ 
   const [isModalOpen, setIsModalOpen]=useState(false);
+
+  const {webformatURL,tags,largeImageURL}=props.image;
 
   const onOpenModal = () => {
     setIsModalOpen(true);
@@ -29,7 +31,7 @@ const ImageGalleryItem =({image:{webformatURL,tags,largeImageURL}})=>{
 
   return (
     <>
-      <li className={css.ImageGalleryItem} onClick={onOpenModal} >
+      <li className={css.ImageGalleryItem} onClick={onOpenModal} ref={ref}>
         <img src={webformatURL} alt={tags} loading="lazy" className={css.ImageGalleryItemImage} />
       </li>
       
@@ -42,7 +44,7 @@ const ImageGalleryItem =({image:{webformatURL,tags,largeImageURL}})=>{
     
   );
 
-};
+});
 
  
 export default ImageGalleryItem;
