@@ -1,50 +1,46 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import css from './Searchbar.module.css';
 import sprite from '../../icons/sprite.svg';
 
-class Searchbar extends Component{
-    state={
-        query:'',
-    }
-
-    handleChange = e => {
-        this.setState({query: e.currentTarget.value});
-
+const Searchbar=({onSubmit})=>{
+    const [query, setQuery]=useState('');
+  
+    const handleChange = e => {
+        setQuery(e.currentTarget.value);
     };
 
-    handleSubmit = e => {
+    const handleSubmit = e => {
         e.preventDefault();
        
-        this.props.onSubmit(this.state);
+        onSubmit(query);
+        setQuery('');
+       
+    };
+
+
+    return(
+        <header className={css.Searchbar}>
+        <form className={css.SearchForm} onSubmit={handleSubmit}>
+        <button type="submit" className={css.SearchFormButton} >
+            <svg width="20" height="20">
+            <use href={sprite}></use>
+            </svg>
+        </button>
     
-        this.setState({ query: ''});
-    };
+        <input
+            className={css.SearchFormInput}
+            type="text"
+            name="query"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            value={query}
+            onChange={handleChange}
+        />
+        </form>
+        </header>
+    );
 
-
-    render(){
-        return(
-            <header className={css.Searchbar}>
-            <form className={css.SearchForm} onSubmit={this.handleSubmit}>
-            <button type="submit" className={css.SearchFormButton} >
-                <svg width="20" height="20">
-                <use href={sprite}></use>
-                </svg>
-            </button>
-        
-            <input
-                className={css.SearchFormInput}
-                type="text"
-                name="query"
-                autoComplete="off"
-                autoFocus
-                placeholder="Search images and photos"
-                value={this.state.query}
-                onChange={this.handleChange}
-            />
-            </form>
-            </header>
-        );
-    };
 }
 
 export default Searchbar;

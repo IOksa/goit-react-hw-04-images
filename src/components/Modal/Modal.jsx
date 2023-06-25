@@ -3,19 +3,15 @@ import PropTypes from 'prop-types';
 import css from './Modal.module.css';
 
 const Modal=({children, onCloseModal})=>{
+
+    const onBackdropClick=(event) =>{
+        if (event.currentTarget === event.target) {
+            onCloseModal();
+        }
+    }
     return createPortal(
-        <div className={css.Overlay} 
-        
-            //закрытие модалки по клику на бекдроп
-             onClick={(event) =>{
-                if (event.currentTarget === event.target) {
-                    console.log("Modal onClick (backdrop)")
-                    onCloseModal();
-
-                }}}>
-
-            <div className={css.Modal}>{children}
-              
+        <div className={css.Overlay} onClick={onBackdropClick}>
+            <div className={css.Modal}>{children}       
             </div>
         </div>,
         document.querySelector("#popup-root")
