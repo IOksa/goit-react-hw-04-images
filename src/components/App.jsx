@@ -16,7 +16,7 @@ export const App = () =>{
   const [isLoading, setIsLoading]=useState(false);
   const [isLoadButton, setIsLoadButton]=useState(true);
 
-  const elemRef = useRef(null);
+  //const elemRef = useRef(null);
 
   useEffect(() => {
     if (!query) {
@@ -37,12 +37,12 @@ export const App = () =>{
           : setGallery(prevState => [...prevState, ...images.hits]);
     
         }
-        if(countPage>1){
-          console.log("Я ЗДЕСЬ!!!!");
-          const { top } = elemRef.current.getBoundingClientRect();
-          window.scrollTo({ top, behavior: 'smooth' });
+        //if(countPage>1){
+          // console.log("Я ЗДЕСЬ!!!!");
+          // const { top } = elemRef.current.getBoundingClientRect();
+          // window.scrollTo({ top, behavior: 'smooth' });
           
-        }
+       // }
           
         if(countPage>images.totalHits/queryLimit){
           setIsLoadButton(false);
@@ -87,7 +87,7 @@ export const App = () =>{
     <ToastContainer autoClose="3000" theme="colored"/>
     <Searchbar onSubmit={onChangeQuery}/>
     {isLoading && <Loader/>}
-    {shouldRenderImageGallery && <ImageGallery gallery={gallery} ref={elemRef}/>}
+    {shouldRenderImageGallery && <ImageGallery gallery={gallery}/>}
     {shouldRenderLoadButton && <Button onClickLoadMore={handleOnClickLoadMore}/>}
     
     </>
