@@ -5,7 +5,7 @@ import {useRef, useState, useEffect} from 'react';
 
 
 const ImageGallery=({gallery, ref})=>{
-    const [height, setHeight] = useState(0);
+    const [height] = useState(0);
     const ulRef = useRef(null);
 
     useEffect(() => {
